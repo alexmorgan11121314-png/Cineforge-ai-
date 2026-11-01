@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10131b">
+<title>CINEFORGE AI — Documentary Studio</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brandmark">CF</div>
+  <div><div class="brand">CINEFORGE <span>AI</span></div><div class="subbrand">DOCUMENTARY STUDIO · BETA</div></div>
+  <button id="settingsBtn" class="iconbtn" aria-label="Settings">⚙</button>
+</header>
+
+<main>
+<section class="hero">
+  <div class="eyebrow">YOUR IDEA → CINEMATIC DOCUMENTARY</div>
+  <h1>Make history<br><em>feel alive.</em></h1>
+  <p>Turn a topic into a researched-style script, illustrated scenes and a moving documentary timeline.</p>
+</section>
+
+<section class="panel">
+  <div class="sectionhead"><span class="step">01</span><div><h2>Start with an idea</h2><p>Choose a topic and let the studio build your first cut.</p></div></div>
+  <label for="topic">DOCUMENTARY IDEA</label>
+  <textarea id="topic" rows="3" placeholder="Example: The rise and fall of the Persian Empire"></textarea>
+  <div class="twocol">
+    <div><label for="duration">TARGET LENGTH</label><select id="duration"><option value="10">10 minutes</option><option value="12" selected>12 minutes</option><option value="15">15 minutes</option></select></div>
+    <div><label for="tone">NARRATIVE STYLE</label><select id="tone"><option value="cinematic mystery">Cinematic mystery</option><option value="epic historical documentary">Epic history</option><option value="clear educational documentary">Clear educational</option></select></div>
+  </div>
+  <button id="buildBtn" class="primary">✦ BUILD MY DOCUMENTARY</button>
+  <div id="status" class="status" role="status">Ready when you are.</div>
+  <div class="note">AI script generation needs a free Groq API key in Settings. Without one, the studio creates an editable starter outline. Historical images are sourced from Wikimedia Commons.</div>
+</section>
+
+<section class="panel hidden" id="scriptPanel">
+  <div class="sectionhead"><span class="step">02</span><div><h2>Your documentary script</h2><p>Edit the narration before building the visual timeline.</p></div></div>
+  <textarea id="scriptText" rows="14" placeholder="Your script will appear here..."></textarea>
+  <div class="actionrow"><button id="saveScript" class="secondary">Save edits</button><button id="sceneBtn" class="primary">CREATE SCENES →</button></div>
+</section>
+
+<section class="panel hidden" id="scenePanel">
+  <div class="sectionhead"><span class="step">03</span><div><h2>Cinematic scene board</h2><p>Scenes use historical images, motion, titles and subtitles.</p></div></div>
+  <div class="sceneTools">
+    <button id="refreshImages" class="secondary">↻ Find images</button>
+    <label class="uploadLabel">Add narration / music <input id="audioFile" type="file" accept="audio/*"></label>
+  </div>
+  <div id="sceneList" class="sceneList"></div>
+  <div class="note">For voice narration in the exported video, upload an audio track. Browser speech preview is not recorded into the video. Use your own narration or a free TTS service and upload its audio file.</div>
+</section>
+
+<section class="panel hidden" id="exportPanel">
+  <div class="sectionhead"><span class="step">04</span><div><h2>Render your documentary</h2><p>Rendering happens on your phone. Keep this tab open.</p></div></div>
+  <div class="renderMeta"><span id="renderEstimate">12 min target · 16:9</span><span id="renderPercent">0%</span></div>
+  <div class="progress"><div id="progressFill"></div></div>
+  <button id="renderBtn" class="primary">▶ RENDER VIDEO</button>
+  <button id="cancelBtn" class="secondary hidden">Cancel render</button>
+  <a id="downloadLink" class="download hidden" download="cineforge-documentary.webm">⬇ Download video</a>
+  <div id="renderStatus" class="status">Your final video will appear here.</div>
+  <canvas id="renderCanvas" width="1920" height="1080" class="hidden"></canvas>
+</section>
+</main>
+
+<footer> CINEFORGE AI · Free-tier prototype · Keep your work backed up </footer>
+
+<dialog id="settingsDialog">
+  <form method="dialog" class="dialogbody">
+    <div class="dialogtop"><h2>Studio settings</h2><button class="iconbtn" value="cancel">✕</button></div>
+    <label for="groqKey">GROQ API KEY (OPTIONAL)</label>
+    <input id="groqKey" type="password" placeholder="gsk_..." autocomplete="off">
+    <p class="note">Get a key from <a href="https://console.groq.com/keys" target="_blank" rel="noopener">Groq Console</a>. Free-tier limits apply. Your key stays in this browser's local storage; don't use this on a shared phone.</p>
+    <label for="model">MODEL</label>
+    <select id="model"><option value="llama-3.3-70b-versatile">Llama 3.3 70B (recommended)</option><option value="llama-3.1-8b-instant">Llama 3.1 8B (faster)</option></select>
+    <button id="saveSettings" class="primary" value="default">Save settings</button>
+    <button id="clearKey" class="secondary" type="button">Remove saved key</button>
+  </form>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
